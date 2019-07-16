@@ -442,7 +442,7 @@ class WMJ {
 		if(is_object($data)) {
 			
 			// Return the first item if not a valid type.
-			if(isset($data->data) && (!$type || !isset($data->data->$type))) {
+			if(isset($data->data) && !$type) {
 				foreach($data->data as $data_key => $data_value) {
 					return (object) array(
 						'success' => true,
@@ -450,12 +450,28 @@ class WMJ {
 					);
 				}
 			
-			// Otherwise return the exact item.
-			} else if(isset($data->data) && isset($data->data->$type)) {
-				return (object) array(
-					'success' => true,
-					'data' => $data->data->$type
-				);
+			// Otherwise return the exact items.
+			} else if(isset($data->data)) {
+				if (is_array($type)) {
+					$return_data = array();
+					foreach ($type as $this_type) {
+						if ($this_type && $data->data->$this_type) {
+							$return_data[$this_type] = $data->data->$this_type;
+						}
+					}
+					if ($return_data) {
+						return (object) array(
+							'success' => true,
+							'data' => $return_data
+						);
+					}
+				} else if ($data->data->$type){
+					return (object) array(
+						'success' => true,
+						'data' => $data->data->$type
+					);
+				}
+				
 			}
 		}
 		
@@ -716,6 +732,10 @@ class WMJ {
 			return false;
 		}
 		
+		if(!is_array($return_key)) {
+			$return_key = array($return_key);
+		}
+
 		$use_params = array();
 		
 		foreach($parameters as $parameter) {
@@ -986,28 +1006,3 @@ class WMJ {
 		return $this->normalize('reports', $results);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
