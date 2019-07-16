@@ -165,7 +165,7 @@ class WMJ {
 				(object) array(
 					'local' => 'team',
 					'remote' => 'includeTeam',
-					'default' => 1,
+					'default' => NULL,
 					'process' => function($v) {
 						return (int) !!$v;
 					}
@@ -173,7 +173,7 @@ class WMJ {
 				(object) array(
 					'local' => 'diaries',
 					'remote' => 'includeDiary',
-					'default' => 1,
+					'default' => NULL,
 					'process' => function($v) {
 						return (int) !!$v;
 					}
@@ -181,7 +181,7 @@ class WMJ {
 				(object) array(
 					'local' => 'todos',
 					'remote' => 'includeTodos',
-					'default' => 1,
+					'default' => NULL,
 					'process' => function($v) {
 						return (int) !!$v;
 					}
@@ -189,7 +189,7 @@ class WMJ {
 				(object) array(
 					'local' => 'tasks',
 					'remote' => 'includeTasks',
-					'default' => 1,
+					'default' => NULL,
 					'process' => function($v) {
 						return (int) !!$v;
 					}
@@ -197,7 +197,7 @@ class WMJ {
 				(object) array(
 					'local' => 'costs',
 					'remote' => 'includeMiscCosts',
-					'default' => 1,
+					'default' => NULL,
 					'process' => function($v) {
 						return (int) !!$v;
 					}
@@ -205,7 +205,7 @@ class WMJ {
 				(object) array(
 					'local' => 'estimates',
 					'remote' => 'includeEstimates',
-					'default' => 1,
+					'default' => NULL,
 					'process' => function($v) {
 						return (int) !!$v;
 					}
@@ -698,7 +698,6 @@ class WMJ {
 		$handler = false
 	) {
 		
-		$name = trim((string) $name);
 		$path = trim((string) $path);
 		
 		if(!$path) {
@@ -739,7 +738,7 @@ class WMJ {
 				$keep = false;
 			}
 			
-			if(!isset($parameter->default) || !$parameter->default) {
+			if((!isset($parameter->default) || !$parameter->default) && !is_null($parameter->default)) {
 				$parameter->default = false;
 			}
 			
