@@ -106,7 +106,7 @@ class WMJ {
 		
 		$this->register_endpoint(
 			'projects',
-			'project',
+			['project', 'tasks', 'team', 'todos', 'miscCosts', 'estimates', 'diary'],
 			array(
 				(object) array(
 					'local' => 'field',
@@ -732,9 +732,9 @@ class WMJ {
 			return false;
 		}
 		
-		if(!is_array($return_key)) {
-			$return_key = array($return_key);
-		}
+		// if(!is_array($return_key)) {
+		// 	$return_key = array($return_key);
+		// }
 
 		$use_params = array();
 		
