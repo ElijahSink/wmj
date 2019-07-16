@@ -933,7 +933,6 @@ class WMJ {
 		if($this->reports[$key]) {
 			$report = $this->reports[$key];
 			$key = $report->key;
-			$validation = $report->validation;
 			$report_parameters = $report->parameters;
 			
 			foreach($report_parameters as $param) {
